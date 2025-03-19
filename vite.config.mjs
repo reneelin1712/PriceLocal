@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => {
       open: true,
       // this sets a default port to 3000
       port: PORT,
-      host: true
+      host: true,
+      cors: false // Ensure CORS is disabled
     },
     preview: {
       open: true,
@@ -39,7 +40,7 @@ export default defineConfig(({ mode }) => {
         // },
       ]
     },
-    base: API_URL,
+    base: "/",//API_URL,
     plugins: [react(), jsconfigPaths()]
   };
 });
