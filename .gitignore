@@ -19,7 +19,7 @@ pids
 lib-cov
 coverage/
 .nyc_output/
-dist/
+# dist/
 build/
 .cache/
 .next/
