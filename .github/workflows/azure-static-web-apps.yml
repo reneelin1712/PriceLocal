@@ -16,27 +16,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: 20  # ✅ Ensure this matches your project requirements
+          node-version: 20
+          cache: 'yarn'
 
-      - name: Enable Corepack and Set Yarn Version
+      - name: Enable Corepack and Use Yarn 4.6.0
         run: |
-          corepack enable  # ✅ Required for Yarn 4
-          corepack prepare yarn@4.6.0 --activate  # ✅ Ensure correct Yarn version
+          corepack enable
+          corepack prepare yarn@4.6.0 --activate
+          yarn --version  # ✅ This should now print 4.6.0
 
-      - name: Clean conflicting package files (Yarn vs. NPM)
+      - name: Install dependencies
         run: |
-          rm -f package-lock.json  # ✅ Remove NPM lock file to avoid conflicts
-
-      - name: Install dependencies (Using Yarn 4)
-        run: |
-          yarn install --immutable  # ✅ Ensure a clean dependency installation
+          yarn install --immutable  # ✅ Ensures no missing dependencies
 
       - name: Build project
         run: |
-          yarn build  # ✅ Use Yarn build command
+          yarn build  # ✅ Ensures the correct build process
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
@@ -45,4 +43,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "."  
-          output_location: "dist"
+          output_location: "dist"  # ✅ Make sure this matches the build folder
