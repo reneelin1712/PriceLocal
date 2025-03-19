@@ -19,15 +19,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20  # ✅ Updated to match React Router 7.1.3 requirement
+          node-version: 20  # ✅ Ensure this matches your project requirements
+
+      - name: Enable Corepack and Set Yarn Version
+        run: |
+          corepack enable  # ✅ Required for Yarn 4
+          corepack prepare yarn@4.6.0 --activate  # ✅ Ensure correct Yarn version
 
       - name: Clean conflicting package files (Yarn vs. NPM)
         run: |
           rm -f package-lock.json  # ✅ Remove NPM lock file to avoid conflicts
 
-      - name: Install dependencies (Using Yarn)
+      - name: Install dependencies (Using Yarn 4)
         run: |
-          yarn install  # ✅ Use Yarn explicitly instead of npm
+          yarn install --immutable  # ✅ Ensure a clean dependency installation
 
       - name: Build project
         run: |
