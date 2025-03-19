@@ -24,7 +24,10 @@ jobs:
 
       - name: Remove Old Global Yarn Version
         run: |
-          sudo rm -rf $(which yarn)
+          sudo rm -rf $(which yarn) || true
+          sudo rm -rf /usr/local/bin/yarn
+          sudo rm -rf /usr/bin/yarn
+          sudo rm -rf /opt/hostedtoolcache/node/20.*/x64/bin/yarn
           corepack enable
           corepack prepare yarn@4.6.0 --activate
           yarn --version  # ✅ This should now print 4.6.0
