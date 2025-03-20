@@ -47,3 +47,4 @@ jobs:
           action: upload
           app_location: "."  # Set to the root folder (adjust if needed)
           output_location: "dist"  # Ensure this is correct
+          api_location: "api"
