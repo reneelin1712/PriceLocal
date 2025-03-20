@@ -20,6 +20,14 @@ const customer = {
       url: '/customer',
       icon: icons.DashboardOutlined,
       breadcrumbs: false
+    },
+    {
+      id: 'upload-customer',
+      title: 'Upload Customers',
+      type: 'item',
+      url: '/customer/upload',
+      icon: icons.UploadOutlined,
+      breadcrumbs: false
     }
   ]
 };
