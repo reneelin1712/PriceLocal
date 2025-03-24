@@ -21,15 +21,17 @@ export default function UploadCustomer() {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onload = async (e) => {
-      const binaryStr = e.target.result;
-      const workbook = XLSX.read(binaryStr, { type: "binary" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet);
-
       try {
+        const binaryStr = e.target.result;
+        const workbook = XLSX.read(binaryStr, { type: "binary" });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+        console.log("✅ JSON to send:", jsonData); // debug log
+
         const response = await fetch(
-          "https://your-function-app.azurewebsites.net/api/uploadCustomerData",
+          "https://customerstorel.azurewebsites.net/api/upload_customers",
           {
             method: "POST",
             headers: {
@@ -40,13 +42,14 @@ export default function UploadCustomer() {
         );
 
         if (response.ok) {
-          setUploadMessage("Upload successful!");
+          setUploadMessage("✅ Upload successful!");
         } else {
-          setUploadMessage("Upload failed. Check API logs.");
+          const errorText = await response.text();
+          setUploadMessage(`❌ Upload failed. Server said: ${errorText}`);
         }
       } catch (error) {
-        console.error("Error uploading data:", error);
-        setUploadMessage("An error occurred while uploading data.");
+        console.error("Upload error:", error);
+        setUploadMessage("❌ An error occurred while uploading data.");
       }
     };
   };
@@ -60,7 +63,9 @@ export default function UploadCustomer() {
           <Button variant="contained" color="primary" onClick={handleUpload} sx={{ mt: 2 }}>
             Upload
           </Button>
-          <Typography variant="body2" color="secondary">{uploadMessage}</Typography>
+          <Typography variant="body2" color="secondary" sx={{ mt: 1 }}>
+            {uploadMessage}
+          </Typography>
         </MainCard>
       </Grid>
     </Grid>
