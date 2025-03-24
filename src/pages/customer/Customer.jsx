@@ -13,6 +13,17 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+// for the table
+import { useEffect, useState } from "react";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+
 // project imports
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
@@ -52,202 +63,149 @@ const actionSX = {
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 export default function Customer() {
+  const [customers, setCustomers] = useState([]);
+  const columns = [
+    "Customer Name",
+    "Type",
+    "Move In",
+    "Move Out",
+    "Unit #",
+    "Unit Size",
+    "Rate",
+    "City",
+    "State",
+    "Stay Days"
+  ];
+  
+
+  // useEffect(() => {
+  //   fetch("https://customerstorel.azurewebsites.net/api/customers")
+  //     .then(async (res) => {
+  //       if (!res.ok) {
+  //         const errorData = await res.json();
+  //         throw new Error(errorData.error || "Unknown error");
+  //       }
+  //       return res.json();
+  //     })
+  //     .then((data) => setCustomers(data))
+  //     .catch((err) => console.error("Error fetching customers:", err));
+  // }, []);
+  const [summary, setSummary] = useState({
+    totalUsers: 0,
+    totalRent: 0,
+    avgRate: 0,
+    avgStayDays: 0,
+    avgYield: 0
+  });
+  
+  useEffect(() => {
+    fetch("https://customerstorel.azurewebsites.net/api/customers")
+      .then((res) => res.json())
+      .then((data) => {
+        setCustomers(data);
+  
+        const totalUsers = data.length;
+        const totalRent = data.reduce((sum, c) => sum + (Number(c.Rate) || 0), 0);
+        const avgRate = totalUsers ? totalRent / totalUsers : 0;
+  
+        const totalStayDays = data.reduce((sum, c) => sum + (Number(c.StayDays) || 0), 0);
+        const avgStayDays = totalUsers ? totalStayDays / totalUsers : 0;
+  
+        const yields = data.map(c => {
+          const rate = Number(c.Rate) || 0;
+          const unitSize = (c.UnitSize || "").split("x");
+          const width = parseFloat(unitSize[0]);
+          const length = parseFloat(unitSize[1]);
+          const area = width * length;
+          return area ? (rate / area) * 12 : 0;
+        });
+        const avgYield = yields.reduce((sum, y) => sum + y, 0) / totalUsers;
+  
+        setSummary({
+          totalUsers,
+          totalRent: totalRent.toFixed(2),
+          avgRate: avgRate.toFixed(2),
+          avgStayDays: avgStayDays.toFixed(1),
+          avgYield: avgYield.toFixed(2)
+        });
+      })
+      .catch((err) => console.error("Error fetching customers:", err));
+  }, []);
+  
+  
+
+
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
       <Grid sx={{ mb: -2.25 }} size={12}>
         <Typography variant="h5">Customer</Typography>
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Total Page Views" count="4,42,236" percentage={59.3} extra="35,000" />
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <AnalyticEcommerce title="Total Users" count={summary.totalUsers} />
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <AnalyticEcommerce title="Total Rent" count={`$${summary.totalRent}`} />
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Total Order" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <AnalyticEcommerce title="Avg Rate" count={`$${summary.avgRate}`} />
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Total Sales" count="35,078" percentage={27.4} isLoss color="warning" extra="20,395" />
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <AnalyticEcommerce title="Avg Stay Days" count={summary.avgStayDays} />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <AnalyticEcommerce title="Yield (avg)" count={`${summary.avgYield} / m² / yr`} />
       </Grid>
       <Grid sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} size={{ md: 8 }} />
-      {/* row 2 */}
-      <Grid size={{ xs: 12, md: 7, lg: 8 }}>
-        <UniqueVisitorCard />
-      </Grid>
-      <Grid size={{ xs: 12, md: 5, lg: 4 }}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid>
-            <Typography variant="h5">Income Overview</Typography>
-          </Grid>
-          <Grid />
-        </Grid>
-        <MainCard sx={{ mt: 2 }} content={false}>
-          <Box sx={{ p: 3, pb: 0 }}>
-            <Stack sx={{ gap: 2 }}>
-              <Typography variant="h6" color="text.secondary">
-                This Week Statistics
-              </Typography>
-              <Typography variant="h3">$7,650</Typography>
-            </Stack>
-          </Box>
-          <MonthlyBarChart />
-        </MainCard>
-      </Grid>
+    
       {/* row 3 */}
-      <Grid size={{ xs: 12, md: 7, lg: 8 }}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid>
-            <Typography variant="h5">Recent Orders</Typography>
-          </Grid>
-          <Grid />
-        </Grid>
-        <MainCard sx={{ mt: 2 }} content={false}>
-          <OrdersTable />
-        </MainCard>
+      {/* <Grid size={{ xs: 12, md: 7, lg: 8 }}> */}
+      <Grid item xs={12}>
+      <Typography variant="h6" sx={{ mb: 2 }}>Customer Data</Typography>
+
+      <Box sx={{ maxHeight: 400, overflow: 'auto' }}>
+        <Table stickyHeader sx={{ minWidth: 1000 }}>
+          <TableHead>
+            <TableRow>
+              {columns.map((col) => (
+                <TableCell
+                  key={col}
+                  sx={{
+                    backgroundColor: '#fff',
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 100,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {col}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {customers.map((c, idx) => (
+              <TableRow key={idx}>
+                <TableCell>{c.CustomerName}</TableCell>
+                <TableCell>{c.Type}</TableCell>
+                <TableCell>{c.MoveInDate}</TableCell>
+                <TableCell>{c.MoveOutDate}</TableCell>
+                <TableCell>{c.UnitNum}</TableCell>
+                <TableCell>{c.UnitSize}</TableCell>
+                <TableCell>{c.Rate}</TableCell>
+                <TableCell>{c.City}</TableCell>
+                <TableCell>{c.State}</TableCell>
+                <TableCell>{c.StayDays}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
+    </Grid>
+
+      <Grid item xs={12}>
       </Grid>
-      <Grid size={{ xs: 12, md: 5, lg: 4 }}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid>
-            <Typography variant="h5">Analytics Report</Typography>
-          </Grid>
-          <Grid />
-        </Grid>
-        <MainCard sx={{ mt: 2 }} content={false}>
-          <List sx={{ p: 0, '& .MuiListItemButton-root': { py: 2 } }}>
-            <ListItemButton divider>
-              <ListItemText primary="Company Finance Growth" />
-              <Typography variant="h5">+45.14%</Typography>
-            </ListItemButton>
-            <ListItemButton divider>
-              <ListItemText primary="Company Expenses Ratio" />
-              <Typography variant="h5">0.58%</Typography>
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Business Risk Cases" />
-              <Typography variant="h5">Low</Typography>
-            </ListItemButton>
-          </List>
-          <ReportAreaChart />
-        </MainCard>
-      </Grid>
-      {/* row 4 */}
-      <Grid size={{ xs: 12, md: 7, lg: 8 }}>
-        <SaleReportCard />
-      </Grid>
-      <Grid size={{ xs: 12, md: 5, lg: 4 }}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid>
-            <Typography variant="h5">Transaction History</Typography>
-          </Grid>
-          <Grid />
-        </Grid>
-        <MainCard sx={{ mt: 2 }} content={false}>
-          <List
-            component="nav"
-            sx={{
-              px: 0,
-              py: 0,
-              '& .MuiListItemButton-root': {
-                py: 1.5,
-                px: 2,
-                '& .MuiAvatar-root': avatarSX,
-                '& .MuiListItemSecondaryAction-root': { ...actionSX, position: 'relative' }
-              }
-            }}
-          >
-            <ListItem
-              component={ListItemButton}
-              divider
-              secondaryAction={
-                <Stack sx={{ alignItems: 'flex-end' }}>
-                  <Typography variant="subtitle1" noWrap>
-                    + $1,430
-                  </Typography>
-                  <Typography variant="h6" color="secondary" noWrap>
-                    78%
-                  </Typography>
-                </Stack>
-              }
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ color: 'success.main', bgcolor: 'success.lighter' }}>
-                  <GiftOutlined />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={<Typography variant="subtitle1">Order #002434</Typography>} secondary="Today, 2:00 AM" />
-            </ListItem>
-            <ListItem
-              component={ListItemButton}
-              divider
-              secondaryAction={
-                <Stack sx={{ alignItems: 'flex-end' }}>
-                  <Typography variant="subtitle1" noWrap>
-                    + $302
-                  </Typography>
-                  <Typography variant="h6" color="secondary" noWrap>
-                    8%
-                  </Typography>
-                </Stack>
-              }
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ color: 'primary.main', bgcolor: 'primary.lighter' }}>
-                  <MessageOutlined />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={<Typography variant="subtitle1">Order #984947</Typography>} secondary="5 August, 1:45 PM" />
-            </ListItem>
-            <ListItem
-              component={ListItemButton}
-              secondaryAction={
-                <Stack sx={{ alignItems: 'flex-end' }}>
-                  <Typography variant="subtitle1" noWrap>
-                    + $682
-                  </Typography>
-                  <Typography variant="h6" color="secondary" noWrap>
-                    16%
-                  </Typography>
-                </Stack>
-              }
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ color: 'error.main', bgcolor: 'error.lighter' }}>
-                  <SettingOutlined />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={<Typography variant="subtitle1">Order #988784</Typography>} secondary="7 hours ago" />
-            </ListItem>
-          </List>
-        </MainCard>
-        <MainCard sx={{ mt: 2 }}>
-          <Stack sx={{ gap: 3 }}>
-            <Grid container justifyContent="space-between" alignItems="center">
-              <Grid>
-                <Stack>
-                  <Typography variant="h5" noWrap>
-                    Help & Support Chat
-                  </Typography>
-                  <Typography variant="caption" color="secondary" noWrap>
-                    Typical replay within 5 min
-                  </Typography>
-                </Stack>
-              </Grid>
-              <Grid>
-                <AvatarGroup sx={{ '& .MuiAvatar-root': { width: 32, height: 32 } }}>
-                  <Avatar alt="Remy Sharp" src={avatar1} />
-                  <Avatar alt="Travis Howard" src={avatar2} />
-                  <Avatar alt="Cindy Baker" src={avatar3} />
-                  <Avatar alt="Agnes Walker" src={avatar4} />
-                </AvatarGroup>
-              </Grid>
-            </Grid>
-            <Button size="small" variant="contained" sx={{ textTransform: 'capitalize' }}>
-              Need Help?
-            </Button>
-          </Stack>
-        </MainCard>
-      </Grid>
+  
     </Grid>
   );
 }
