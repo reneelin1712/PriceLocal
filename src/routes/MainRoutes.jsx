@@ -18,6 +18,7 @@ const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')))
 // render - Customer Page (NEW)
 const Customer = Loadable(lazy(() => import("pages/customer/Customer")));
 const UploadCustomer = Loadable(lazy(() => import('pages/customer/UploadCustomer')));
+const CustomerMap = Loadable(lazy(() => import('pages/customer/CustomerMap')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -62,6 +63,10 @@ const MainRoutes = {
     {
       path: 'customer/upload',
       element: <UploadCustomer />
+    },
+    {
+      path: 'customer/map',
+      element: <CustomerMap />
     }
   ]
 };

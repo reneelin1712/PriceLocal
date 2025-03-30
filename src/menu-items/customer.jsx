@@ -28,6 +28,14 @@ const customer = {
       url: '/customer/upload',
       icon: icons.UploadOutlined,
       breadcrumbs: false
+    },
+    {
+      id: 'map',
+      title: 'map',
+      type: 'item',
+      url: '/customer/map',
+      icon: icons.UploadOutlined,
+      breadcrumbs: false
     }
   ]
 };

@@ -76,6 +76,21 @@ export default function Customer() {
     "State",
     "Stay Days"
   ];
+  // const columns = [
+  //   "Customer Name",
+  //   "Type",
+  //   "Move In",
+  //   "Move Out",
+  //   "Unit #",
+  //   "Unit Size",
+  //   "Width",
+  //   "Length",
+  //   "Rate",
+  //   "Suggest Rate",
+  //   "City",
+  //   "State",
+  //   "Stay Days"
+  // ];
   
 
   // useEffect(() => {
@@ -184,21 +199,25 @@ export default function Customer() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map((c, idx) => (
-              <TableRow key={idx}>
-                <TableCell>{c.CustomerName}</TableCell>
-                <TableCell>{c.Type}</TableCell>
-                <TableCell>{c.MoveInDate}</TableCell>
-                <TableCell>{c.MoveOutDate}</TableCell>
-                <TableCell>{c.UnitNum}</TableCell>
-                <TableCell>{c.UnitSize}</TableCell>
-                <TableCell>{c.Rate}</TableCell>
-                <TableCell>{c.City}</TableCell>
-                <TableCell>{c.State}</TableCell>
-                <TableCell>{c.StayDays}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+  {customers.map((c, idx) => (
+    <TableRow key={idx}>
+      <TableCell>{c.CustomerName}</TableCell>
+      <TableCell>{c.Type}</TableCell>
+      <TableCell>{c.MoveInDate}</TableCell>
+      <TableCell>{c.MoveOutDate}</TableCell>
+      <TableCell>{c.UnitNum}</TableCell>
+      <TableCell>{c.UnitSize}</TableCell>
+      {/* <TableCell>{c.Width?.toFixed(1) ?? "—"}</TableCell>
+      <TableCell>{c.Length?.toFixed(1) ?? "—"}</TableCell> */}
+      <TableCell>{c.Rate}</TableCell>
+      {/* <TableCell>{c.SuggestRate !== null ? `$${c.SuggestRate.toFixed(2)}` : "—"}</TableCell> */}
+      <TableCell>{c.City}</TableCell>
+      <TableCell>{c.State}</TableCell>
+      <TableCell>{c.StayDays}</TableCell>
+    </TableRow>
+  ))}
+</TableBody>
+
         </Table>
       </Box>
     </Grid>
