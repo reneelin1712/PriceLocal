@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Map, { Source, Layer, Popup } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import geoDataRaw from 'data/poa_customer_map.json'; // Your merged postal geojson
+// import 'mapbox-gl/dist/mapbox-gl.css';
+import 'assets/mapbox-gl.css';
+import geoDataRaw from 'data/poa_customer_map.json'; 
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicmVuZWVsaW4iLCJhIjoiY2xpMnlwMjltMHZhMTNnbGhhdDd1dWUyNiJ9.aDqg-guBjcnNuADQUlgtBQ';
 
