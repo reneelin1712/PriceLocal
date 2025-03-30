@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
     base: "/",//API_URL,
     plugins: [react(), jsconfigPaths()],
     optimizeDeps: {
-      include: ['mapbox-gl/dist/mapbox-gl.css']
+      include: ['mapbox-gl/dist/mapbox-gl.css','mapbox-gl', 'react-map-gl']
     }
   };
 });
