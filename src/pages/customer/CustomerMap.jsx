@@ -2,8 +2,30 @@ import React, { useEffect, useState } from 'react';
 import Map, { Source, Layer, Marker, Popup, NavigationControl } from 'react-map-gl';
 import 'assets/mapbox-gl.css'; // local copy of mapbox-gl.css
 import geoDataRaw from 'data/poa_customer_map.json';
+import customerPoints from 'data/mega_customers.json';
+
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicmVuZWVsaW4iLCJhIjoiY2xpMnlwMjltMHZhMTNnbGhhdDd1dWUyNiJ9.aDqg-guBjcnNuADQUlgtBQ';
+
+// Corrected GeoJSON conversion
+const customerGeoJson = {
+  type: "FeatureCollection",
+  features: customerPoints
+    .filter(p => p.Latitude && p.Longitude) // <-- use correct keys
+    .map(p => ({
+      type: "Feature",
+      properties: {
+        name: p.TenantName,
+        address: p.Addr
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [p.Longitude, p.Latitude] // <-- use correct keys
+      }
+    }))
+};
+
+
 
 const stores = [
   {
@@ -271,6 +293,19 @@ export default function CustomerMap() {
 </Marker>
 
         ))}
+
+<Source id="customer-dots" type="geojson" data={customerGeoJson}>
+  <Layer
+    id="customer-points"
+    type="circle"
+    paint={{
+      'circle-radius': 3,
+      'circle-color': '#444',
+      'circle-opacity': 0.6
+    }}
+  />
+</Source>
+
 
         {/* Postal hover popup */}
         {hoverInfo && (
