@@ -4,7 +4,6 @@ import 'assets/mapbox-gl.css'; // local copy of mapbox-gl.css
 import geoDataRaw from 'data/poa_customer_map.json';
 import customerPoints from 'data/mega_customers.json';
 
-
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicmVuZWVsaW4iLCJhIjoiY2xpMnlwMjltMHZhMTNnbGhhdDd1dWUyNiJ9.aDqg-guBjcnNuADQUlgtBQ';
 
 // Corrected GeoJSON conversion
@@ -24,8 +23,6 @@ const customerGeoJson = {
       }
     }))
 };
-
-
 
 const stores = [
   {
@@ -117,6 +114,8 @@ export default function CustomerMap() {
     zoom: 10
   });
 
+  const [showCustomers, setShowCustomers] = useState(true); // <-- NEW: state to control visibility of customer dots
+
   useEffect(() => {
     setGeoData(geoDataRaw);
   }, []);
@@ -142,21 +141,31 @@ export default function CustomerMap() {
 
   return (
     <div style={{ width: '100%', height: '80vh' }}>
-      {/* <Map
-        initialViewState={{
-          latitude: -35.1,
-          longitude: 138.53,
-          zoom: 10
-        }}
-        style={{ width: '100%', height: '100%' }}
-        // mapStyle="mapbox://styles/mapbox/streets-v11"
-        mapStyle="mapbox://styles/mapbox/light-v10"
-        mapboxAccessToken={MAPBOX_TOKEN}
-        interactiveLayerIds={['postal-fill']}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={() => setHoverInfo(null)}
-      > */}
-       <Map
+     
+      {/* Toggle container */}
+  <div
+    style={{
+      position: 'absolute',
+      top: 5,
+      left: 50,  // move this far enough so it doesn’t overlap the zoom widget
+      zIndex: 2,
+      background: 'white',
+      padding: '6px',
+      borderRadius: '4px'
+    }}
+  >
+    <label style={{ fontSize: '14px', fontFamily: 'sans-serif' }}>
+      <input
+        type="checkbox"
+        checked={showCustomers}
+        onChange={() => setShowCustomers(!showCustomers)}
+        style={{ marginRight: '6px' }}
+      />
+      Show Mega Deal Customers
+    </label>
+  </div>
+
+      <Map
         {...viewState}
         onMove={evt => setViewState(evt.viewState)}
         mapboxAccessToken={MAPBOX_TOKEN}
@@ -164,14 +173,13 @@ export default function CustomerMap() {
         interactiveLayerIds={['postal-fill']}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => setHoverInfo(null)}
-        style={{ width: '100%', height: '100%' }}
+        style={{ marginTop: '42px',width: '100%', height:'78vh' }}
       >
-
-      <NavigationControl
-        position="top-left"
-        showCompass={true}
-        visualizePitch={true}
-      />
+        <NavigationControl
+          position="top-left"
+          showCompass={true}
+          visualizePitch={true}
+        />
 
         {/* Shape Layer */}
         <Source id="postal-polygons" type="geojson" data={geoData}>
@@ -179,17 +187,16 @@ export default function CustomerMap() {
             id="postal-fill"
             type="fill"
             paint={{
-'fill-color': [
-  'step',
-  ['get', 'customerCount'],
-  '#EDF8B1',  // 1–10
-  11, '#c7e9b4', // 11–25
-  26, '#7FCDBB', // 26–40
-  41, '#41b6c4', // 41–55
-  56, '#2C7FB8'  // 56+
-],
-'fill-opacity': 0.8
-
+              'fill-color': [
+                'step',
+                ['get', 'customerCount'],
+                '#EDF8B1',  // 1–10
+                11, '#c7e9b4', // 11–25
+                26, '#7FCDBB', // 26–40
+                41, '#41b6c4', // 41–55
+                56, '#2C7FB8'  // 56+
+              ],
+              'fill-opacity': 0.8
             }}
           />
           <Layer
@@ -205,107 +212,49 @@ export default function CustomerMap() {
 
         {/* Store Markers */}
         {stores.map((store, idx) => (
-          // <Marker
-          //   key={idx}
-          //   longitude={store.Long}
-          //   latitude={store.Lat}
-          //   anchor="bottom"
-          // >
-          //   <div
-          //     onClick={() => setSelectedStore(store)}
-          //     style={{
-          //       backgroundColor: store.StoreType === "Us" ? '#007bff' : '#ff5733',
-          //       width: '12px',
-          //       height: '12px',
-          //       borderRadius: '50%',
-          //       border: '2px solid white',
-          //       cursor: 'pointer'
-          //     }}
-          //     title={store.StoreName}
-          //   />
-          // </Marker>
-
-
-//           <Marker
-//   key={idx}
-//   longitude={store.Long}
-//   latitude={store.Lat}
-//   anchor="bottom"
-// >
-//   <div style={{ textAlign: 'center' }}>
-//     {/* Store name label (only show for competitors) */}
-//     {store.StoreType === 'Competitors' && (
-//       <div
-//         style={{
-//           // background: 'white',
-//           padding: '2px 4px',
-//           // borderRadius: '4px',
-//           fontSize: '10px',
-//           whiteSpace: 'nowrap',
-//           color: '#333',
-//           // boxShadow: '0 0 2px rgba(0,0,0,0.3)'
-//         }}
-//       >
-//         {store.StoreName}
-//       </div>
-//     )}
-//     {/* Colored marker dot */}
-//     <div
-//       onClick={() => setSelectedStore(store)}
-//       style={{
-//         backgroundColor: store.StoreType === "Us" ? '#007bff' : '#ff5733',
-//         width: '10px',
-//         height: '10px',
-//         borderRadius: '50%',
-//         border: '2px solid white',
-//         margin: '0 auto',
-//         cursor: 'pointer'
-//       }}
-//     />
-//   </div>
-// </Marker>
-
-<Marker key={idx} longitude={store.Long} latitude={store.Lat} anchor="bottom">
-<div style={{ textAlign: 'center' }}>
-  {store.StoreType === 'Competitors' && viewState.zoom >= 11 && (
-    <div style={{
-      fontSize: '10px',
-      color: '#000',
-      marginBottom: '2px',
-      whiteSpace: 'nowrap'
-    }}>
-      {store.StoreName}
-    </div>
-  )}
-  <div
-    onClick={() => setSelectedStore(store)}
-    style={{
-      backgroundColor: store.StoreType === "Us" ? '#007bff' : '#ff5733',
-      width: '10px',
-      height: '10px',
-      borderRadius: '50%',
-      border: '2px solid white',
-      margin: '0 auto',
-      cursor: 'pointer'
-    }}
-  />
-</div>
-</Marker>
-
+          <Marker key={idx} longitude={store.Long} latitude={store.Lat} anchor="bottom">
+            <div style={{ textAlign: 'center' }}>
+              {store.StoreType === 'Competitors' && viewState.zoom >= 11 && (
+                <div style={{
+                  fontSize: '10px',
+                  color: '#000',
+                  marginBottom: '2px',
+                  whiteSpace: 'nowrap'
+                }}>
+                  {store.StoreName}
+                </div>
+              )}
+              <div
+                onClick={() => setSelectedStore(store)}
+                style={{
+                  backgroundColor: store.StoreType === "Us" ? '#007bff' : '#ff5733',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  border: '2px solid white',
+                  margin: '0 auto',
+                  cursor: 'pointer'
+                }}
+              />
+            </div>
+          </Marker>
         ))}
 
-<Source id="customer-dots" type="geojson" data={customerGeoJson}>
-  <Layer
-    id="customer-points"
-    type="circle"
-    paint={{
-      'circle-radius': 3,
-      'circle-color': '#444',
-      'circle-opacity': 0.6
-    }}
-  />
-</Source>
-
+        {/* Conditionally render customer points based on showCustomers */}
+        {showCustomers && ( // <-- NEW: only show if showCustomers is true
+          <Source id="customer-dots" type="geojson" data={customerGeoJson}>
+            <Layer
+              id="customer-points"
+              type="circle"
+              paint={{
+                'circle-radius': 3,
+                'circle-color': '#444',
+                'circle-opacity': 0.6
+              }}
+            />
+          </Source>
+        )} 
+        {/* END NEW */}
 
         {/* Postal hover popup */}
         {hoverInfo && (
@@ -323,8 +272,8 @@ export default function CustomerMap() {
           </Popup>
         )}
 
-  {/* Store Popup */}
-  {selectedStore && (
+        {/* Store Popup */}
+        {selectedStore && (
           <Popup
             longitude={selectedStore.Long}
             latitude={selectedStore.Lat}
@@ -340,34 +289,27 @@ export default function CustomerMap() {
           </Popup>
         )}
 
-        
-<div style={{
-  position: 'absolute',
-  bottom: 20,
-  left: 20,
-  backgroundColor: 'white',
-  padding: '10px',
-  fontSize: '12px',
-  borderRadius: '6px',
-  boxShadow: '0 0 6px rgba(0,0,0,0.15)',
-  zIndex: 1
-}}>
-  <strong>Customers per Postal Code</strong>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '6px' }}>
-    <div><span style={{ backgroundColor: '#EDF8B1', width: 20, height: 10, display: 'inline-block' }} /> 1 – 10</div>
-    <div><span style={{ backgroundColor: '#c7e9b4', width: 20, height: 10, display: 'inline-block' }} /> 11 – 25</div>
-    <div><span style={{ backgroundColor: '#7FCDBB', width: 20, height: 10, display: 'inline-block' }} /> 26 – 40</div>
-    <div><span style={{ backgroundColor: '#41b6c4', width: 20, height: 10, display: 'inline-block' }} /> 41 – 55</div>
-    <div><span style={{ backgroundColor: '#2C7FB8', width: 20, height: 10, display: 'inline-block' }} /> 56+</div>
-  </div>
-</div>
-
+        <div style={{
+          position: 'absolute',
+          bottom: 40,
+          left: 20,
+          backgroundColor: 'white',
+          padding: '10px',
+          fontSize: '12px',
+          borderRadius: '6px',
+          boxShadow: '0 0 6px rgba(0,0,0,0.15)',
+          zIndex: 1
+        }}>
+          <strong>Customers per Postal Code</strong>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '6px' }}>
+            <div><span style={{ backgroundColor: '#EDF8B1', width: 20, height: 10, display: 'inline-block' }} /> 1 – 10</div>
+            <div><span style={{ backgroundColor: '#c7e9b4', width: 20, height: 10, display: 'inline-block' }} /> 11 – 25</div>
+            <div><span style={{ backgroundColor: '#7FCDBB', width: 20, height: 10, display: 'inline-block' }} /> 26 – 40</div>
+            <div><span style={{ backgroundColor: '#41b6c4', width: 20, height: 10, display: 'inline-block' }} /> 41 – 55</div>
+            <div><span style={{ backgroundColor: '#2C7FB8', width: 20, height: 10, display: 'inline-block' }} /> 56+</div>
+          </div>
+        </div>
       </Map>
-
-
-
-
     </div>
-    
   );
 }
