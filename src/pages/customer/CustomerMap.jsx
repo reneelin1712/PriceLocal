@@ -36,28 +36,28 @@ const stores = [
     StoreType: "Us"
   },
   {
-    StoreName: "Storage King Adelaide",
+    StoreName: "Storage King O'Sullivan Beach",
     Addr: "84 Baden Terrace, O'Sullivan Beach SA 5166",
     Lat: -35.1162510872085,
     Long: 138.483901935582,
     StoreType: "Competitors"
   },
   {
-    StoreName: "Storage King Adelaide",
+    StoreName: "Storage King St Marys",
     Addr: "1167A South Rd, St Marys SA 5042",
     Lat: -34.9966960943479,
     Long: 138.575624922088,
     StoreType: "Competitors"
   },
   {
-    StoreName: "Storage King Adelaide",
+    StoreName: "Storage King Windsor Gardens",
     Addr: "40-46 Albert St, Windsor Gardens SA 5087",
     Lat: -34.8685127485636,
     Long: 138.647683993253,
     StoreType: "Competitors"
   },
   {
-    StoreName: "Storage King Adelaide",
+    StoreName: "Storage King Woodville North",
     Addr: "596 Torrens Rd, Woodville North SA 5012",
     Lat: -34.8674943711143,
     Long: 138.537582364417,
@@ -78,7 +78,7 @@ const stores = [
     StoreType: "Competitors"
   },
   {
-    StoreName: "Roomia Self Storage",
+    StoreName: "Storage Lord Lonsdale",
     Addr: "8 Devon St, Lonsdale SA 5160",
     Lat: -35.1147900964572,
     Long: 138.50057095435,
