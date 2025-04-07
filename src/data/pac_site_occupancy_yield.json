@@ -1,0 +1,212 @@
+[
+    {
+      "Month": "May-2022",
+      "Occupancy": 0.0,
+      "Spot Yield": 0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Jun-2022",
+      "Occupancy": 0.0,
+      "Spot Yield": 0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Jul-2022",
+      "Occupancy": 0.0,
+      "Spot Yield": 0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Aug-2022",
+      "Occupancy": 11.9,
+      "Spot Yield": 345.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Sep-2022",
+      "Occupancy": 24.9,
+      "Spot Yield": 343.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Oct-2022",
+      "Occupancy": 35.7,
+      "Spot Yield": 346.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Nov-2022",
+      "Occupancy": 43.0,
+      "Spot Yield": 351.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Dec-2022",
+      "Occupancy": 48.9,
+      "Spot Yield": 343.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Jan-2023",
+      "Occupancy": 58.1,
+      "Spot Yield": 346.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Feb-2023",
+      "Occupancy": 60.9,
+      "Spot Yield": 345.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Mar-2023",
+      "Occupancy": 62.7,
+      "Spot Yield": 346.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Apr-2023",
+      "Occupancy": 68.0,
+      "Spot Yield": 345.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "May-2023",
+      "Occupancy": 70.5,
+      "Spot Yield": 346.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Jun-2023",
+      "Occupancy": 71.6,
+      "Spot Yield": 347.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Jul-2023",
+      "Occupancy": 75.9,
+      "Spot Yield": 344.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Aug-2023",
+      "Occupancy": 73.5,
+      "Spot Yield": 343.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Sep-2023",
+      "Occupancy": 76.8,
+      "Spot Yield": 339.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Oct-2023",
+      "Occupancy": 87.0,
+      "Spot Yield": 338.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Nov-2023",
+      "Occupancy": 90.2,
+      "Spot Yield": 339.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Dec-2023",
+      "Occupancy": 89.5,
+      "Spot Yield": 344.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Jan-2024",
+      "Occupancy": 93.2,
+      "Spot Yield": 345.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Feb-2024",
+      "Occupancy": 94.6,
+      "Spot Yield": 346.0,
+      "Push Yield": 0
+    },
+    {
+      "Month": "Mar-2024",
+      "Occupancy": 92.2,
+      "Spot Yield": 350.0,
+      "Push Yield": 407.0
+    },
+    {
+      "Month": "Apr-2024",
+      "Occupancy": 91.7,
+      "Spot Yield": 355.0,
+      "Push Yield": 405.0
+    },
+    {
+      "Month": "May-2024",
+      "Occupancy": 92.5,
+      "Spot Yield": 358.0,
+      "Push Yield": 403.0
+    },
+    {
+      "Month": "Jun-2024",
+      "Occupancy": 92.2,
+      "Spot Yield": 363.0,
+      "Push Yield": 404.0
+    },
+    {
+      "Month": "Jul-2024",
+      "Occupancy": 91.0,
+      "Spot Yield": 367.0,
+      "Push Yield": 404.0
+    },
+    {
+      "Month": "Aug-2024",
+      "Occupancy": 93.7,
+      "Spot Yield": 370.0,
+      "Push Yield": 402.0
+    },
+    {
+      "Month": "Sep-2024",
+      "Occupancy": 93.3,
+      "Spot Yield": 372.0,
+      "Push Yield": 403.0
+    },
+    {
+      "Month": "Oct-2024",
+      "Occupancy": 90.0,
+      "Spot Yield": 376.0,
+      "Push Yield": 426.0
+    },
+    {
+      "Month": "Nov-2024",
+      "Occupancy": 33.3,
+      "Spot Yield": 384.0,
+      "Push Yield": 419.0
+    },
+    {
+      "Month": "Dec-2024",
+      "Occupancy": 33.1,
+      "Spot Yield": 388.0,
+      "Push Yield": 443.0
+    },
+    {
+      "Month": "Jan-2025",
+      "Occupancy": 37.0,
+      "Spot Yield": 392.0,
+      "Push Yield": 422.0
+    },
+    {
+      "Month": "Feb-2025",
+      "Occupancy": 39.9,
+      "Spot Yield": 392.0,
+      "Push Yield": 417.0
+    },
+    {
+      "Month": "Mar-2025",
+      "Occupancy": 44.3,
+      "Spot Yield": 393.0,
+      "Push Yield": 415.0
+    }
+  ]
