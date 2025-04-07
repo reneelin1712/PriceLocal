@@ -4712,6 +4712,7 @@ __metadata:
     knip: "npm:5.45.0"
     lodash-es: "npm:4.17.21"
     mapbox-gl: "npm:^3.10.0"
+    motion-dom: "npm:12.0.0"
     prettier: "npm:3.4.2"
     prettier-eslint-cli: "npm:8.0.1"
     react: "npm:18.3.1"
@@ -4922,6 +4923,15 @@ __metadata:
   version: 0.5.2
   resolution: "moo@npm:0.5.2"
   checksum: 10c0/a9d9ad8198a51fe35d297f6e9fdd718298ca0b39a412e868a0ebd92286379ab4533cfc1f1f34516177f5129988ab25fe598f78e77c84e3bfe0d4a877b56525a8
+  languageName: node
+  linkType: hard
+
+"motion-dom@npm:12.0.0":
+  version: 12.0.0
+  resolution: "motion-dom@npm:12.0.0"
+  dependencies:
+    motion-utils: "npm:^12.0.0"
+  checksum: 10c0/d67209bc217f16b9a0305afa4bfc366997d02df76eea9ab29062f98beeff5fdfc60ae1b422ab397f525ae775c640ac9ba061c9f45aacd6cd71a23dce06661384
   languageName: node
   linkType: hard
 
