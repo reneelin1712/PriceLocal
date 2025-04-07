@@ -31,9 +31,17 @@ const customer = {
     },
     {
       id: 'map',
-      title: 'map',
+      title: 'map-hac',
       type: 'item',
-      url: '/customer/map',
+      url: '/customer/map-hac',
+      icon: icons.UploadOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'map-pac',
+      title: 'map-pac',
+      type: 'item',
+      url: '/customer/map-pac',
       icon: icons.UploadOutlined,
       breadcrumbs: false
     }
