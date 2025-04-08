@@ -174,5 +174,11 @@
       "Occupancy": 44.3,
       "Spot Yield": 393.0,
       "Push Yield": 415.0
-    }
+    },
+    {
+        "Month": "Apr-2025",
+        "Occupancy": 44.98,
+        "Spot Yield": 394.0,
+        "Push Yield": 414.0
+      }
   ]
