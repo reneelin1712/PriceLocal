@@ -25,18 +25,24 @@ export default function PredictPrices() {
   };
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file) {
+      alert("Please select an Excel file before uploading.");
+      return;
+    }
 
     const reader = new FileReader();
     reader.readAsBinaryString(file);
-    reader.onload = async (e) => {
-      const binaryStr = e.target.result;
-      const workbook = XLSX.read(binaryStr, { type: "binary" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet);
 
+    reader.onload = async (e) => {
       try {
+        const binaryStr = e.target.result;
+        const workbook = XLSX.read(binaryStr, { type: "binary" });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+        console.log("📦 Data extracted from Excel:", jsonData);
+
         const response = await fetch("https://customerstorel.azurewebsites.net/api/predict-prices", {
           method: "POST",
           headers: {
@@ -46,13 +52,30 @@ export default function PredictPrices() {
         });
 
         const result = await response.json();
+        console.log("📬 Raw API response:", result);
+
+        if (!response.ok) {
+          console.error("❌ Server error:", result.error || result);
+          alert("Prediction failed: " + (result.error || "Unknown server error."));
+          return;
+        }
+
+        if (!Array.isArray(result)) {
+          console.error("❌ Unexpected response format:", result);
+          alert("Prediction failed: Server did not return valid predictions.");
+          return;
+        }
+
         const enriched = result.map((row) => ({
           ...row,
           Variance: row.SuggestedPrice_RF - row.MonthlyTotal
         }));
+
+        console.log("✅ Predictions enriched:", enriched);
         setPredictedData(enriched);
       } catch (error) {
-        console.error("Prediction error:", error);
+        console.error("❌ Network or parsing error:", error);
+        alert("Prediction failed: " + error.message);
       }
     };
   };
