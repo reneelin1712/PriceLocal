@@ -31,9 +31,9 @@ const customer = {
     },
     {
       id: 'map',
-      title: 'map-hac',
+      title: 'map-DUR',
       type: 'item',
-      url: '/customer/map-hac',
+      url: '/customer/map-DUR',
       icon: icons.UploadOutlined,
       breadcrumbs: false
     },

@@ -68,7 +68,7 @@ const MainRoutes = {
       element: <UploadCustomer />
     },
     {
-      path: 'customer/map-hac',
+      path: 'customer/map-DUR',
       element: <CustomerMap />
     },
     {

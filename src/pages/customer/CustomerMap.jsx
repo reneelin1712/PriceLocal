@@ -26,82 +26,34 @@ const customerGeoJson = {
 
 const stores = [
   {
-    StoreName: "StoreLocal Hackham",
-    Addr: "34 Cottage Ln, Hackham SA 5163",
-    Lat: -35.1483542747843,
-    Long: 138.529770993343,
+    StoreName: "StoreLocal Durack",
+    Addr: "656 Blunder Road",
+    Lat: -27.596041,
+    Long: 152.9877175,
     StoreType: "Us"
   },
+
   {
-    StoreName: "Storage King O'Sullivan Beach",
-    Addr: "84 Baden Terrace, O'Sullivan Beach SA 5166",
-    Lat: -35.1162510872085,
-    Long: 138.483901935582,
+    StoreName: "National Storage Oxley",
+    Addr: "18 Jutland St",
+    Lat: -27.5661827,
+    Long: 152.9772513,
     StoreType: "Competitors"
   },
   {
-    StoreName: "Storage King St Marys",
-    Addr: "1167A South Rd, St Marys SA 5042",
-    Lat: -34.9966960943479,
-    Long: 138.575624922088,
-    StoreType: "Competitors"
+    "StoreName": "Storage King - Acacia Ridge",
+    "Addr": "23 Learoyd Road, Acacia Ridge QLD 4110",
+    "Lat": -27.5980538,
+    "Long": 153.0381966,
+    "StoreType": "Competitors"
   },
-  {
-    StoreName: "Storage King Windsor Gardens",
-    Addr: "40-46 Albert St, Windsor Gardens SA 5087",
-    Lat: -34.8685127485636,
-    Long: 138.647683993253,
-    StoreType: "Competitors"
+    {
+    "StoreName": "Swift Storage",
+    "Addr": "35 King Ave, Willawong QLD 4110",
+    "Lat": -27.5939057,
+    "Long": 153.0039275,
+    "StoreType": "Competitors"
   },
-  {
-    StoreName: "Storage King Woodville North",
-    Addr: "596 Torrens Rd, Woodville North SA 5012",
-    Lat: -34.8674943711143,
-    Long: 138.537582364417,
-    StoreType: "Competitors"
-  },
-  {
-    StoreName: "National Storage Reynella",
-    Addr: "141 Old S Rd, Reynella SA 5161",
-    Lat: -35.0946196575136,
-    Long: 138.537527513493,
-    StoreType: "Competitors"
-  },
-  {
-    StoreName: "Kennards Self Storage Seaford Meadows",
-    Addr: "31 Seaford Rd, Seaford Meadows SA 5169",
-    Lat: -35.1795634004127,
-    Long: 138.490163450924,
-    StoreType: "Competitors"
-  },
-  {
-    StoreName: "Storage Lord Lonsdale",
-    Addr: "8 Devon St, Lonsdale SA 5160",
-    Lat: -35.1147900964572,
-    Long: 138.50057095435,
-    StoreType: "Competitors"
-  },
-  {
-    StoreName: "Roomia Self Storage Seaford",
-    Addr: "535-541 Main S Rd, Old Noarlunga SA 5168",
-    Lat: -35.1860766860909,
-    Long: 138.490548476596,
-    StoreType: "Competitors"
-  },
-  {
-    StoreName: "U-Store-It Self Storage - Lonsdale",
-    Addr: "20 Aldenhoven Rd, Lonsdale SA 5160",
-    Lat: -35.1131541735983,
-    Long: 138.496758682852,
-    StoreType: "Competitors"
-  },
-  {
-    StoreName: "Mid-Coast Self Storage",
-    Addr: "15 Dunn St, Seaford SA 5169",
-    Lat: -35.1850637707424,
-    Long: 138.489484361764,
-    StoreType: "Competitors"
-  }
 ];
 
 export default function CustomerMap() {
@@ -109,8 +61,8 @@ export default function CustomerMap() {
   const [hoverInfo, setHoverInfo] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
   const [viewState, setViewState] = useState({
-    latitude: -35.1,
-    longitude: 138.53,
+    latitude:  -27.596041,
+    longitude: 152.9877175,
     zoom: 10
   });
 
@@ -161,7 +113,7 @@ export default function CustomerMap() {
         onChange={() => setShowCustomers(!showCustomers)}
         style={{ marginRight: '6px' }}
       />
-      Show Mega Deal Customers
+      Show Customers
     </label>
   </div>
 
