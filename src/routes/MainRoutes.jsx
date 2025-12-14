@@ -20,6 +20,7 @@ const Customer = Loadable(lazy(() => import("pages/customer/Customer")));
 const UploadCustomer = Loadable(lazy(() => import('pages/customer/UploadCustomer')));
 const CustomerMap = Loadable(lazy(() => import('pages/customer/CustomerMap')));
 const MapPAC = Loadable(lazy(() => import('pages/customer/MapPAC')));
+const MapPIM = Loadable(lazy(() => import('pages/customer/MapPIM')));
 const PredictPrices = Loadable(lazy(() => import('pages/predict/PredictPrices')));
 
 
@@ -70,6 +71,10 @@ const MainRoutes = {
     {
       path: 'customer/map-DUR',
       element: <CustomerMap />
+    },
+     {
+      path: 'customer/map-PIM', 
+      element: <MapPIM />
     },
     {
       path: 'customer/map-pac', 

@@ -37,6 +37,14 @@ const customer = {
       icon: icons.UploadOutlined,
       breadcrumbs: false
     },
+        {
+      id: 'map-pac',
+      title: 'map-PIM',
+      type: 'item',
+      url: '/customer/map-PIM',
+      icon: icons.UploadOutlined,
+      breadcrumbs: false
+    },
     {
       id: 'map-pac',
       title: 'map-pac',
