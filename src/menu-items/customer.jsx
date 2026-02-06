@@ -52,6 +52,22 @@ const customer = {
       url: '/customer/map-pac',
       icon: icons.UploadOutlined,
       breadcrumbs: false
+    },
+    {
+      id: 'map-wel',
+      title: 'map-WEL',
+      type: 'item',
+      url: '/customer/map-WEL',
+      icon: icons.UploadOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'map-wpl',
+      title: 'map-WPL',
+      type: 'item',
+      url: '/customer/map-WPL',
+      icon: icons.UploadOutlined,
+      breadcrumbs: false
     }
   ]
 };
